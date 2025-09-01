@@ -1,0 +1,56 @@
+Character creator, like the RPS omega one but with skill point allocation
+
+str - dmg
+hit - hit rate
+avo - avoid chance
+
+actual hit chance% = hit - avo (hit chance cannot be below 0%)
+
+def - defence
+
+actual dmg = dmg - def (dmg cannot go below 0)
+
+hp - hit points
+
+Character class - holds stats, universal actions
+
+Attack moves return their full damage, method to retrieve defence returns def
+
+Attacker subclass
+Defender subclass
+subclasses hold unique moves
+ideally moves are designed such that multiple stat spreads have something they can build towards (for later)
+special moves ideas
+  - Uses non str stat for calcs?
+  - Not necessarily an attack (temp buff, stack type buff etc)
+  - Dmg calc must be AtkStat - DefStat, but the used stats can change
+
+Stat selector class - exists to interface stat allocation, and to create the player objects
+
+Taking damage:
+
+Takedamage method accepts Self defence calc AND Other's move method (returns dmg)
+DMG = OTHERDMG - SELFDEF
+
+
+BATTLE SECTION:
+Class for battle area?
+runs methods for gameplay loop, checks if someones dead, 
+
+Dependencies:
+Player depends on Stat selector
+Battle depends on Player
+
+STAT SELECTION:
+Allow full freedom, players can go 0 in a stat if they want to (except hit)
+
+Ranges:
+str: 0-any
+hit: 80-any
+avo: 0-any
+def: 0-any
+HP: 14-any
+
+50 Skill points to allocate, each point gives +2 to any stat they choose
+
+Keys 1,2,3,4,5 increase the respective stat, Q,W,E,R,T decrease
