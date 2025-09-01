@@ -52,6 +52,11 @@ public class StatCreator{
         this.setHp = this.baseSetHp;
     }
 
+    /**
+     * Calculates if the total stat distribution is correct
+     * @return True if it is correct, False otherwise
+     */
+
     private boolean isStatDistributionCorrect(){
         if (this.setStr + this.setHit + this.setAvo + this.setDef + this.setHp - this.baseStatDistribution == 2 * (this.totalSkillPoints - this.skillPoints)){ 
             return true;
@@ -61,10 +66,18 @@ public class StatCreator{
         }
     }
 
+    /**
+     * Resets the stats and prints funny message
+     */
+
     private void weFuckedUp(){
         System.out.println("Error: Stat distribution does not add up properly, resetting stats");
         this.resetStats();
     }
+
+    /**
+     * Prints all stats to the screen
+     */
 
     public void displayAllStats(){
         System.out.println("Str: " + this.setStr);
@@ -74,6 +87,14 @@ public class StatCreator{
         System.out.println("HP: " + this.setHp);
         System.out.println("Skill Points: " + this.skillPoints + " / " + this.totalSkillPoints);
     }
+
+    /**
+     * Asks the user if the class/stats are acceptable
+     * <p>Accepts Y and N, recurs if the user says something else
+     * @param scanner Scanner object needed to read from console
+     * @param stage Determines the initial message to the user
+     * @return True if the user is ok with outcome, false otherwise
+     */
 
     private boolean isUserHappy(Scanner scanner, int stage){
         if (stage == 0){
@@ -98,6 +119,12 @@ public class StatCreator{
         }
     }
 
+    /**
+     * Honestly does what it says on the tin
+     * <p>Gets input as char
+     * @param scanner Scanner object needed to read from console
+     * @return The first char in the string the user types to the console
+     */
     private char getUserInput(Scanner scanner){
         char x;
         x = scanner.next().charAt(0);
@@ -110,6 +137,13 @@ public class StatCreator{
     // get input (check if valid, except shit inputs)
     // loop that runs until user ends manually
 
+    /**
+     * Determine if an input is any of Q W E R T or 0
+     * <p>Yell if not
+     * @param input Input to be validated
+     * @return True if input is valid, false otherwise
+     */
+
     private boolean isInputValid(char input){
         if (input == 'q' || input == 'Q' || input == 'w' || input == 'W' || input == 'e' || input == 'E' || input == 'r' || input == 'R' || input == 't' || input == 'T' || input == '0'){
             return true;
@@ -120,8 +154,13 @@ public class StatCreator{
         }
     }
 
-    private boolean isInputUpperCase(char input){
-        if (input == 'Q' || input == 'W' || input == 'E' || input == 'R' || input == 'T'){
+    /**
+     * Check if input is Q W E R T and uppercase
+     * @param input Input to be validated
+     * @return True if input is uppercase, false otherwise
+     */ 
+    public boolean isInputUpperCase(char input){ 
+        if ((int)input >= 65 && (int)input <=90){
             return true;
         }
         else {
@@ -129,6 +168,11 @@ public class StatCreator{
         }
     }
 
+    /**
+     * Does what it says on the tin
+     * @param input Input to be validated
+     * @return True if input is 0, false otherwise
+     */
     private boolean isInputZero(char input){
         if (input == '0'){
             return true;
@@ -138,6 +182,10 @@ public class StatCreator{
         }
     }
 
+    /**
+     * Check if skill points amount is above 0
+     * @return True if skill points is higher than 0, false otherwise
+     */
     private boolean isEnoughSkillPts(){
         if (this.skillPoints > 0) {
             return true;
@@ -145,8 +193,12 @@ public class StatCreator{
         else {
             return false;
         }
-    }
+    } 
 
+    /**
+     * Checks input, adds +2 to stat and -1 to skill points
+     * @param input Decides which stat to add to
+     */
     private void statAdder(char input){
         if (input == 'q'){
             this.setStr += 2;
@@ -170,6 +222,10 @@ public class StatCreator{
         }
     }
 
+    /**
+     * Checks input, adds -2 to stat and +1 to skill points
+     * @param input Decides which stat to subtract from
+     */
     private void statSubtractor(char input){
         if (input == 'Q' && this.setStr > this.baseSetStr){
             this.setStr -= 2;
@@ -196,6 +252,12 @@ public class StatCreator{
         }
     }
 
+    /**
+     * Main function for running the stat adding logic
+     * <p>Prints the current character stats, prompts user to type to add and subtract from them
+     * <p>Typing 0 will prompt the method to finish
+     * @param scanner Scanner object needed to read from console
+     */
     public void changeStats(Scanner scanner){
             // get input
             // is input valid
@@ -241,6 +303,12 @@ public class StatCreator{
     }
 
     // class setting methods
+
+    /**
+     * 
+     * @param scanner Scanner object needed to read from console
+     * @return
+     */
     private int getUserClassChoice(Scanner scanner){
         char selection = ' ';
         int result = -1;

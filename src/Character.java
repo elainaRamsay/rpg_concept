@@ -45,8 +45,8 @@ public class Character {
 
     /**
      * 
-     * @param otherHit the hit stat of the other character
-     * hit chance is other character's hit stat - this characters avoid stat + avoid modifier
+     * @param otherHit the hit stat of the other character 
+     * <p>hit chance is other character's hit stat - this characters avoid stat + avoid modifier<p>
      * in order to dodge, the dice roll must be higher or equal to the hit chance
      * dice roll works from 0 to 100 with no decimals
      * @return true for this character dodged, false if they didnt
@@ -69,6 +69,11 @@ public class Character {
         }
     }
 
+
+    /**
+     * Calculates damage for basic attack
+     * @return The full damage value for the attack
+     */
     public int basicAttack(){ // works 13.8.25
         // basic attack the other
         // return value is the dmg of the move BEFORE opponent def calcs
@@ -76,6 +81,11 @@ public class Character {
         dmg = Math.round(dmg);
         return (int)dmg;
     }
+
+    /**
+     * Calculates the true damage by subtracting def from the dmg
+     * @param fullDmg The full damage of the attack
+     */
 
     public void takeDamage(int fullDmg){ // works 13.8.25
         //take damage, dmg = str - def
