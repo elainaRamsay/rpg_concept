@@ -16,7 +16,7 @@ public class Main {
         // p1.displayAllStats();
         // System.out.println(p1.checkInputValid(p1.getUserInput()));
         // UnitTests.runStatCreatorTests(p1);
-        p1.changeStats(scanner);
+        p1.classSelection(scanner);
         
         scanner.close();
     }

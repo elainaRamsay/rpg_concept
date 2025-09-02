@@ -115,6 +115,7 @@ public class StatCreator{
             return false;
         }
         else {
+            System.out.println("Error: Not a valid choice");
             return isUserHappy(scanner, stage);
         }
     }
@@ -311,7 +312,7 @@ public class StatCreator{
 
     /**
      * Gets users class choice
-     * <p>Gets user input, if input is not a number it recurs until a number is entered
+     * <p>Gets user input, if input is not a valid class it recurs until a number is entered
      * @param scanner Scanner object needed to read from console
      * @return User's class choice as int
      */
@@ -325,11 +326,26 @@ public class StatCreator{
 
         result = charToInt(selection);
 
-        if (result == -1){
+        if (isValidClass(result)){
+            System.out.println("Error: Not a valid character class");
             result = getUserClassChoice(scanner);
         }
 
         return result;
+    }
+
+    /**
+     * Checks if input is a valid class option
+     * @param input Input to be checked
+     * @return True if input corresponds to a valid character class, false otherwise
+     */
+    private boolean isValidClass(int input){
+        if (input <= 0 || input > 2){
+            return true;
+        }
+        else {
+            return false;
+        }
     }
 
     /**
@@ -396,12 +412,13 @@ public class StatCreator{
         }
     }
 
+    // Character Object
     /**
      * Imports the finally selected stats into a character of the desired class
      * @param character Character object to be casted into the new subclass
      * @param scanner Scanner object to read from console
      */
-    public void makeCharacter(Character character, Scanner scanner){
+    public void makeCharacter(GameCharacter character, Scanner scanner){
         int selection = getUserClassChoice(scanner);
 
         if (selection == 0){
@@ -417,11 +434,11 @@ public class StatCreator{
         }
     }
 
-    private void statTransferAttacker(Character character){
+    private void statTransferAttacker(GameCharacter character){
         character = new Attacker(this.setStr, this.setHit, this.setAvo, this.setDef, this.setHp, this.setUserName);
     }
 
-    private void statTransferDefender(Character character){
+    private void statTransferDefender(GameCharacter character){
         character = new Defender(this.setStr, this.setHit, this.setAvo, this.setDef, this.setHp, this.setUserName);
     }
 

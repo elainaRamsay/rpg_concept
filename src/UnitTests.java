@@ -1,6 +1,6 @@
 public class UnitTests {
 
-    public static void runCharacterTests(Character testSubject){
+    public static void runCharacterTests(GameCharacter testSubject){
         dodgeTest(testSubject);
         takeDamageTest(testSubject);
     }
@@ -9,7 +9,7 @@ public class UnitTests {
         isAllocationCorrectTest(testSubject);
     }
 
-    private static void dodgeTest(Character thing){
+    private static void dodgeTest(GameCharacter thing){
         boolean weDodged = false;
 
         while (!weDodged) {
@@ -21,7 +21,7 @@ public class UnitTests {
         }
     }
 
-    private static void takeDamageTest(Character thing){
+    private static void takeDamageTest(GameCharacter thing){
         System.out.println("Current hp: " + thing.getHpCurrent());
         thing.takeDamage(30);
         System.out.println("Current hp: " + thing.getHpCurrent());

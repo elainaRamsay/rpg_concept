@@ -1,4 +1,4 @@
-public class Defender extends Character {
+public class Defender extends GameCharacter {
 // class 1
 
     Defender(int istr, int ihit, int iavo, int idef, int ihp, String iuserName){

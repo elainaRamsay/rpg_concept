@@ -1,4 +1,4 @@
-public class Character {
+public class GameCharacter {
     private int str;
     private int hit;
     private int avo;
@@ -18,7 +18,7 @@ public class Character {
     private boolean isSlain;
     private String userName;
 
-    public Character(int istr, int ihit, int iavo, int idef, int ihp, String iuserName){
+    public GameCharacter(int istr, int ihit, int iavo, int idef, int ihp, String iuserName){
         this.str = istr;
         this.hit = ihit;
         this.avo = iavo;
