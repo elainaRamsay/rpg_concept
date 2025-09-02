@@ -271,24 +271,29 @@ public class StatCreator{
             char input = getUserInput(scanner);
             boolean finished = false;
 
-            if (isInputValid(input) && !isInputZero(input)) {
-                // check if uppercase
-                if (isInputUpperCase(input)){
-                    statSubtractor(input);
-                    System.out.println("subtracting");
+            if (isInputValid(input)){
+                //input is valid, but maybe 0 or not 0
+                if (isInputZero(input)){
+                    finished = isUserHappy(scanner, 1);
                 }
+                //input is valid and not zero
                 else {
-                    if (isEnoughSkillPts()) {
-                        statAdder(input);
-                        System.out.println("adding");
+                    // check if uppercase
+                    if (isInputUpperCase(input)){
+                        statSubtractor(input);
+                        System.out.println("subtracting");
                     }
                     else {
-                        System.out.println("not enough skill point");
+                        if (isEnoughSkillPts()) {
+                            statAdder(input);
+                            System.out.println("adding");
+                        }
+                        else {
+                            System.out.println("not enough skill point");
+                        }
                     }
                 }
-            }
-            else if (isInputValid(input) && isInputZero(input)){
-                finished = isUserHappy(scanner, 1);
+
             }
 
             if (!isStatDistributionCorrect()){
@@ -305,9 +310,10 @@ public class StatCreator{
     // class setting methods
 
     /**
-     * 
+     * Gets users class choice
+     * <p>Gets user input, if input is not a number it recurs until a number is entered
      * @param scanner Scanner object needed to read from console
-     * @return
+     * @return User's class choice as int
      */
     private int getUserClassChoice(Scanner scanner){
         char selection = ' ';
@@ -326,6 +332,11 @@ public class StatCreator{
         return result;
     }
 
+    /**
+     * Converts a numeric char into its numerical value as an int
+     * @param x Char to be converted
+     * @return Numerical value of numerical char, or -1 if the char is not a number
+     */
     private int charToInt(char x){
         int result = (int)x;
         if (result < 48 || result > 57){
@@ -337,6 +348,11 @@ public class StatCreator{
         return result;
     }
 
+    /**
+     * Gets the users class, changes object attribute to be used by a different method. 
+     * @param scanner Scanner object needed to read from console
+     * @return True if the user selected a class successfully, false otherwise
+     */
     public boolean classSelection(Scanner scanner){
         int selection = -1;
         boolean finished = false;
@@ -364,6 +380,10 @@ public class StatCreator{
         return finished;
     }
 
+    /**
+     * Calls the description methods of Character Subclasses, yells if class doesnt exist
+     * @param selection Selection for which class to show descriptions for
+     */
     private void showDescriptions(int selection){
         if (selection == 1){
             Attacker.showDescription();
@@ -376,6 +396,11 @@ public class StatCreator{
         }
     }
 
+    /**
+     * Imports the finally selected stats into a character of the desired class
+     * @param character Character object to be casted into the new subclass
+     * @param scanner Scanner object to read from console
+     */
     public void makeCharacter(Character character, Scanner scanner){
         int selection = getUserClassChoice(scanner);
 
