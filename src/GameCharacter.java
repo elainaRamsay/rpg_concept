@@ -11,6 +11,13 @@ public class GameCharacter {
         this.userName = iuserName;
     }
 
+    public GameCharacter(Stats stats, String iuserName){
+        this.stats = stats;
+        this.isBlocking = false;
+        this.isSlain = false;
+        this.userName = iuserName;
+    }
+
     public GameCharacter(){
         this.stats = new Stats(0,0,0,0,0);
         this.isBlocking = false;

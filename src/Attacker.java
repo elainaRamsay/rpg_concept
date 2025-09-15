@@ -6,6 +6,10 @@ public class Attacker extends GameCharacter {
         // any buff stacks or whateverthe fuck
     }
 
+    Attacker(Stats stats, String iUsername){
+        super(stats, iUsername);
+    }
+
     public void showClassName(){
         System.out.println("Attacker");
     }

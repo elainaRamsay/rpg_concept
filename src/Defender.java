@@ -6,6 +6,10 @@ public class Defender extends GameCharacter {
         // any buff stacks or whateverthe fuck
     }
 
+    Defender(Stats stats, String iuserName){
+        super(stats, iuserName);
+    }
+
     public void showClassName(){
         System.out.println("Defender");
     }

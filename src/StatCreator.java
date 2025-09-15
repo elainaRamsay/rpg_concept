@@ -1,22 +1,6 @@
 import java.util.Scanner;
 
 public class StatCreator{
-    /* 
-    private int setStr;
-    private int setHit;
-    private int setAvo;
-    private int setDef;
-    private int setHp;
-
-    private final int baseSetStr;
-    private final int baseSetHit;
-    private final int baseSetAvo;
-    private final int baseSetDef;
-    private final int baseSetHp;
-     * 
-    */
-
-
     private int skillPoints;
 
     private Stats stats;
@@ -28,21 +12,6 @@ public class StatCreator{
     private int characterClass;
 
     StatCreator(){
-        /*
-        this.setStr = 0;
-        this.setHit = 80;
-        this.setAvo = 0;
-        this.setDef = 0;
-        this.setHp = 14;
-
-        this.baseSetStr = this.setStr;
-        this.baseSetHit = this.setHit;
-        this.baseSetAvo = this.setAvo;
-        this.baseSetDef = this.setDef;
-        this.baseSetHp = this.setHp;
-         * 
-         */
-        
         this.skillPoints = 50;
         this.stats = new Stats(0,80,0,0,14);
         this.baseStats = new Stats(this.stats.getStr(), this.stats.getHit(), this.stats.getAvo(), this.stats.getDef(), this.stats.getHpMax());
@@ -56,14 +25,6 @@ public class StatCreator{
     // universal methods
 
     public void resetStats(){
-        /*
-        this.setStr = this.baseSetStr;
-        this.setHit = this.baseSetHit;
-        this.setAvo = this.baseSetAvo;
-        this.setDef = this.baseSetDef;
-        this.setHp = this.baseSetHp;
-        */
-
         this.skillPoints = totalSkillPoints;
         this.stats.setStr(this.baseStats.getStr());
         this.stats.setHit(this.baseStats.getHit());
@@ -102,14 +63,6 @@ public class StatCreator{
      */
 
     public void displayAllStats(){
-        /* 
-        System.out.println("Str: " + this.setStr);
-        System.out.println("Hit: " + this.setHit);
-        System.out.println("Avo: " + this.setAvo);
-        System.out.println("Def: " + this.setDef);
-        System.out.println("HP: " + this.setHp);
-         * 
-        */
         this.stats.displayAllStats();
         System.out.println("Skill Points: " + this.skillPoints + " / " + this.totalSkillPoints);
     }
@@ -228,27 +181,22 @@ public class StatCreator{
      */
     private void statAdder(char input){
         if (input == 'q'){
-            //this.setStr += 2;
             this.stats.setStr(this.stats.getStr() + 2);
             this.skillPoints -=1;
         }
         else if (input == 'w'){
-            //this.setHit += 2;
             this.stats.setHit(this.stats.getHit() + 2);
             this.skillPoints -=1;
         }
         else if (input == 'e'){
-            //this.setAvo += 2;
             this.stats.setAvo(this.stats.getAvo() + 2);
             this.skillPoints -=1;
         }
         else if (input == 'r'){
-            //this.setDef += 2;
             this.stats.setDef(this.stats.getDef() + 2);
             this.skillPoints -=1;
         }
         else if (input == 't'){
-            //this.setHp += 2;
             this.stats.setHpMax(this.stats.getHpMax() + 2);
             this.stats.setHpCurrent(this.stats.getHpMax());
             this.skillPoints -=1;
@@ -261,27 +209,22 @@ public class StatCreator{
      */
     private void statSubtractor(char input){
         if (input == 'Q' && this.stats.getStr() > this.baseStats.getStr()){
-            //this.setStr -= 2;
             this.stats.setStr(this.stats.getStr() - 2);
             this.skillPoints +=1;
         }
         else if (input == 'W' && this.stats.getHit() > this.baseStats.getHit()){
-            //this.setHit -= 2;
             this.stats.setHit(this.stats.getHit() - 2);
             this.skillPoints +=1;
         }
         else if (input == 'E' && this.stats.getAvo() > this.baseStats.getAvo()){
-            //this.setAvo -= 2;
             this.stats.setAvo(this.stats.getAvo() - 2);
             this.skillPoints +=1;
         }
         else if (input == 'R' && this.stats.getDef() > this.baseStats.getDef()){
-            //this.setDef -= 2;
             this.stats.setDef(this.stats.getDef() - 2);
             this.skillPoints +=1;
         }
         else if (input == 'T' && this.stats.getHpMax() > this.baseStats.getHpMax()){
-            //this.setHp -= 2;
             this.stats.setHpMax(this.stats.getHpMax() - 2);
             this.stats.setHpCurrent(this.stats.getHpMax());
             this.skillPoints +=1;
@@ -457,7 +400,7 @@ public class StatCreator{
      * @return an Attacker object
      */
     public Attacker makeAttacker(){
-        return new Attacker(this.stats.getStr(), this.stats.getHit(), this.stats.getAvo(), this.stats.getDef(), this.stats.getHpMax(), this.setUserName);
+        return new Attacker(this.stats, this.setUserName);
     }
 
     /**
@@ -465,7 +408,7 @@ public class StatCreator{
      * @return a Defender object
      */
     public Defender makeDefender(){
-        return new Defender(this.stats.getStr(), this.stats.getHit(), this.stats.getAvo(), this.stats.getDef(), this.stats.getHpMax(), this.setUserName);
+        return new Defender(this.stats, this.setUserName);
     }
 
     // main method
