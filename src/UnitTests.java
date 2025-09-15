@@ -35,20 +35,22 @@ public class UnitTests {
     }
     
     private static void isAllocationCorrectTest(StatCreator testSubject){
-        testSubject.setSetStr(0);
-        testSubject.setSetHit(80);
-        testSubject.setSetAvo(0);
-        testSubject.setSetDef(0);
-        testSubject.setSetHp(14);
+        
+        testSubject.setStr(0);
+        testSubject.setHit(80);
+        testSubject.setAvo(0);
+        testSubject.setDef(0);
+        testSubject.setHpMax(14);
         testSubject.setSkillPoints(50);
-        //System.out.println(testSubject.isAllocationCorrect());
+        // System.out.println(testSubject.isStatDistributionCorrect()); // true
 
-        testSubject.setSetStr(20);
-        testSubject.setSetHit(100);
-        testSubject.setSetAvo(20);
-        testSubject.setSetDef(20);
-        testSubject.setSetHp(34);
+        testSubject.setStr(20);
+        testSubject.setHit(100);
+        testSubject.setAvo(20);
+        testSubject.setDef(20);
+        testSubject.setHpMax(34);
         testSubject.setSkillPoints(0);
-        //System.out.println(testSubject.isAllocationCorrect());
+        
+        // System.out.println(testSubject.isStatDistributionCorrect()); //true
     }
 }

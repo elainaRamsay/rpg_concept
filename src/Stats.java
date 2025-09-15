@@ -54,8 +54,15 @@ public class Stats {
         System.out.println("Hit: " + this.hit);
         System.out.println("Avo: " + this.avo);
         System.out.println("Def: " + this.def);
-        System.out.println("HP max: " + this.hpMax);
-        System.out.println("HP current: " + this.hpCurrent);
+        System.out.println("HP: " + this.hpTotalString());
+    }
+
+    public String hpTotalString(){
+        return (this.hpCurrent + " / " + this.hpMax);
+    }
+
+    public String toString(){
+        return (this.str + " " +  this.hit + " " + this.avo + " " +  this.def + " " + this.hpCurrent + " " + this.hpMax);
     }
 
     /*
@@ -122,6 +129,10 @@ public class Stats {
     }
     public int getTotalDef(){
         return this.def + this.defMod;
+    }
+
+    public int statsSum(){
+        return this.str + this.hit + this.avo + this.def + this.hpMax;
     }
 
     // Setters

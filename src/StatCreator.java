@@ -1,28 +1,34 @@
 import java.util.Scanner;
 
 public class StatCreator{
-    private int skillPoints;
-
+    /* 
     private int setStr;
     private int setHit;
     private int setAvo;
     private int setDef;
     private int setHp;
-    private String setUserName;
 
     private final int baseSetStr;
     private final int baseSetHit;
     private final int baseSetAvo;
     private final int baseSetDef;
     private final int baseSetHp;
+     * 
+    */
 
+
+    private int skillPoints;
+
+    private Stats stats;
+    private final Stats baseStats;
     private final int baseStatDistribution;
     private final int totalSkillPoints;
 
+    private String setUserName;
     private int characterClass;
 
     StatCreator(){
-        this.skillPoints = 50;
+        /*
         this.setStr = 0;
         this.setHit = 80;
         this.setAvo = 0;
@@ -34,8 +40,14 @@ public class StatCreator{
         this.baseSetAvo = this.setAvo;
         this.baseSetDef = this.setDef;
         this.baseSetHp = this.setHp;
+         * 
+         */
+        
+        this.skillPoints = 50;
+        this.stats = new Stats(0,80,0,0,14);
+        this.baseStats = new Stats(this.stats.getStr(), this.stats.getHit(), this.stats.getAvo(), this.stats.getDef(), this.stats.getHpMax());
 
-        this.baseStatDistribution = this.setStr + this.setHit + this.setAvo + this.setDef + this.setHp;
+        this.baseStatDistribution = this.baseStats.statsSum();
         this.totalSkillPoints = this.skillPoints;
         this.setUserName = null;
         this.characterClass = -1;
@@ -44,12 +56,22 @@ public class StatCreator{
     // universal methods
 
     public void resetStats(){
-        this.skillPoints = totalSkillPoints;
+        /*
         this.setStr = this.baseSetStr;
         this.setHit = this.baseSetHit;
         this.setAvo = this.baseSetAvo;
         this.setDef = this.baseSetDef;
         this.setHp = this.baseSetHp;
+        */
+
+        this.skillPoints = totalSkillPoints;
+        this.stats.setStr(this.baseStats.getStr());
+        this.stats.setHit(this.baseStats.getHit());
+        this.stats.setAvo(this.baseStats.getAvo());
+        this.stats.setDef(this.baseStats.getDef());
+        this.stats.setHpCurrent(this.baseStats.getHpMax());
+        this.stats.setHpMax(this.baseStats.getHpMax());
+        this.baseStats.setStr(0);
     }
 
     /**
@@ -58,7 +80,7 @@ public class StatCreator{
      */
 
     private boolean isStatDistributionCorrect(){
-        if (this.setStr + this.setHit + this.setAvo + this.setDef + this.setHp - this.baseStatDistribution == 2 * (this.totalSkillPoints - this.skillPoints)){ 
+        if (this.stats.statsSum() - this.baseStatDistribution == 2 * (this.totalSkillPoints - this.skillPoints)){ 
             return true;
         }
         else {
@@ -80,11 +102,15 @@ public class StatCreator{
      */
 
     public void displayAllStats(){
+        /* 
         System.out.println("Str: " + this.setStr);
         System.out.println("Hit: " + this.setHit);
         System.out.println("Avo: " + this.setAvo);
         System.out.println("Def: " + this.setDef);
         System.out.println("HP: " + this.setHp);
+         * 
+        */
+        this.stats.displayAllStats();
         System.out.println("Skill Points: " + this.skillPoints + " / " + this.totalSkillPoints);
     }
 
@@ -202,23 +228,29 @@ public class StatCreator{
      */
     private void statAdder(char input){
         if (input == 'q'){
-            this.setStr += 2;
+            //this.setStr += 2;
+            this.stats.setStr(this.stats.getStr() + 2);
             this.skillPoints -=1;
         }
         else if (input == 'w'){
-            this.setHit += 2;
+            //this.setHit += 2;
+            this.stats.setHit(this.stats.getHit() + 2);
             this.skillPoints -=1;
         }
         else if (input == 'e'){
-            this.setAvo += 2;
+            //this.setAvo += 2;
+            this.stats.setAvo(this.stats.getAvo() + 2);
             this.skillPoints -=1;
         }
         else if (input == 'r'){
-            this.setDef += 2;
+            //this.setDef += 2;
+            this.stats.setDef(this.stats.getDef() + 2);
             this.skillPoints -=1;
         }
         else if (input == 't'){
-            this.setHp += 2;
+            //this.setHp += 2;
+            this.stats.setHpMax(this.stats.getHpMax() + 2);
+            this.stats.setHpCurrent(this.stats.getHpMax());
             this.skillPoints -=1;
         }
     }
@@ -228,24 +260,30 @@ public class StatCreator{
      * @param input Decides which stat to subtract from
      */
     private void statSubtractor(char input){
-        if (input == 'Q' && this.setStr > this.baseSetStr){
-            this.setStr -= 2;
+        if (input == 'Q' && this.stats.getStr() > this.baseStats.getStr()){
+            //this.setStr -= 2;
+            this.stats.setStr(this.stats.getStr() - 2);
             this.skillPoints +=1;
         }
-        else if (input == 'W' && this.setHit > this.baseSetHit){
-            this.setHit -= 2;
+        else if (input == 'W' && this.stats.getHit() > this.baseStats.getHit()){
+            //this.setHit -= 2;
+            this.stats.setHit(this.stats.getHit() - 2);
             this.skillPoints +=1;
         }
-        else if (input == 'E' && this.setAvo > this.baseSetAvo){
-            this.setAvo -= 2;
+        else if (input == 'E' && this.stats.getAvo() > this.baseStats.getAvo()){
+            //this.setAvo -= 2;
+            this.stats.setAvo(this.stats.getAvo() - 2);
             this.skillPoints +=1;
         }
-        else if (input == 'R' && this.setDef > this.baseSetDef){
-            this.setDef -= 2;
+        else if (input == 'R' && this.stats.getDef() > this.baseStats.getDef()){
+            //this.setDef -= 2;
+            this.stats.setDef(this.stats.getDef() - 2);
             this.skillPoints +=1;
         }
-        else if (input == 'T' && this.setHp > this.baseSetHp){
-            this.setHp -= 2;
+        else if (input == 'T' && this.stats.getHpMax() > this.baseStats.getHpMax()){
+            //this.setHp -= 2;
+            this.stats.setHpMax(this.stats.getHpMax() - 2);
+            this.stats.setHpCurrent(this.stats.getHpMax());
             this.skillPoints +=1;
         }
         else {
@@ -419,7 +457,7 @@ public class StatCreator{
      * @return an Attacker object
      */
     public Attacker makeAttacker(){
-        return new Attacker(this.setStr, this.setHit, this.setAvo, this.setDef, this.setHp, this.setUserName);
+        return new Attacker(this.stats.getStr(), this.stats.getHit(), this.stats.getAvo(), this.stats.getDef(), this.stats.getHpMax(), this.setUserName);
     }
 
     /**
@@ -427,7 +465,7 @@ public class StatCreator{
      * @return a Defender object
      */
     public Defender makeDefender(){
-        return new Defender(this.setStr, this.setHit, this.setAvo, this.setDef, this.setHp, this.setUserName);
+        return new Defender(this.stats.getStr(), this.stats.getHit(), this.stats.getAvo(), this.stats.getDef(), this.stats.getHpMax(), this.setUserName);
     }
 
     // main method
@@ -451,21 +489,25 @@ public class StatCreator{
     public int getSkillPoints(){
         return this.skillPoints;
     }
-    public int getSetStr(){
-        return this.setStr;
+    public int getStr(){
+        return this.stats.getStr();
     }
-    public int getSetHit(){
-        return this.setHit;
+    public int getHit(){
+        return this.stats.getHit();
     }
-    public int getSetAvo(){
-        return this.setAvo;
+    public int getAvo(){
+        return this.stats.getAvo();
     }
-    public int getSetDef(){
-        return this.setDef;
+    public int getDef(){
+        return this.stats.getDef();
     }
-    public int getSetHp(){
-        return this.setHp;
+    public int getHpMax(){
+        return this.stats.getHpMax();
     }
+    public int getHpCurrent(){
+        return this.stats.getHpCurrent();
+    }
+
     public String getSetUserName(){
         return this.setUserName;
     }
@@ -477,21 +519,25 @@ public class StatCreator{
     public void setSkillPoints(int skillPoints){
         this.skillPoints = skillPoints;
     }
-    public void setSetStr(int setStr){
-        this.setStr = setStr;
+    public void setStr(int newStr){
+        this.stats.setStr(newStr);
     }
-    public void setSetHit(int setHit){
-        this.setHit = setHit;
+    public void setHit(int newHit){
+        this.stats.setHit(newHit);
     }
-    public void setSetAvo(int setAvo){
-        this.setAvo = setAvo;
+    public void setAvo(int newAvo){
+        this.stats.setAvo(newAvo);
     }
-    public void setSetDef(int setDef){
-        this.setDef = setDef;
+    public void setDef(int newDef){
+        this.stats.setDef(newDef);
     }
-    public void setSetHp(int setHp){
-        this.setHp = setHp;
+    public void setHpCurrent(int newHpCurrent){
+        this.stats.setHpCurrent(newHpCurrent);
     }
+    public void setHpMax(int newHpMax){
+        this.stats.setHpMax(newHpMax);
+    }
+
     public void setSetUserName(String setUserName){
         this.setUserName = setUserName;
     }
