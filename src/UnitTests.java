@@ -27,10 +27,10 @@ public class UnitTests {
         System.out.println("Current hp: " + thing.getHpCurrent());
         thing.setHpCurrent(thing.getHpMax());
         thing.takeDamage(50);
-        System.out.println(thing.getHpCurrent());
+        System.out.println("Current hp: " + thing.getHpCurrent());
         thing.setHpCurrent(thing.getHpMax());
         thing.takeDamage(10);
-        System.out.println(thing.getHpCurrent());
+        System.out.println("Current hp: " + thing.getHpCurrent());
         thing.setHpCurrent(thing.getHpMax());
     }
     

@@ -1,46 +1,48 @@
 public class GameCharacter {
-    private int str;
-    private int hit;
-    private int avo;
-    private int def;
-    private int hpMax;
-    private int hpCurrent;
-
-    private int strMod;
-    private int hitMod;
-    private int avoMod;
-    private int defMod;
-    // no temp HP, only def increases
-
-    private int guardDefBonus;
-    private int guardAvoPenalty;
-
+    private Stats stats;
+    private boolean isBlocking;
     private boolean isSlain;
     private String userName;
 
     public GameCharacter(int istr, int ihit, int iavo, int idef, int ihp, String iuserName){
-        this.str = istr;
-        this.hit = ihit;
-        this.avo = iavo;
-        this.def = idef;
-        this.hpMax = ihp;
-        this.hpCurrent = ihp;
+        this.stats = new Stats(istr, ihit, iavo, idef, ihp);
+        this.isBlocking = false;
         this.isSlain = false;
         this.userName = iuserName;
-
-        this.guardDefBonus = 40;
-        this.guardAvoPenalty = 20;
     }
+
+    public GameCharacter(){
+        this.stats = new Stats(0,0,0,0,0);
+        this.isBlocking = false;
+        this.isSlain = false;
+        this.userName = null;
+    }
+
+     
+    public void displayAllStats(){
+        this.stats.displayAllStats();
+    }
+     
 
     // universal action methods
     public void block(){
-        this.defMod += guardDefBonus;
-        this.avoMod += guardAvoPenalty;
+        if (this.isBlocking){
+            System.out.println("Error: Already blocking");
+            return;
+        }
+        this.isBlocking = true;
+        this.stats.setDef(this.stats.getDef() + this.stats.getGuardDefBonus()); 
+        this.stats.setAvo(this.stats.getAvo() + this.stats.getGuardAvoPenalty());
     }
 
     public void dropGuard(){
-        this.defMod -= guardDefBonus;
-        this.avoMod -= guardAvoPenalty;
+        if (!this.isBlocking){
+            System.out.println("Error: not blocking");
+            return;
+        }
+        this.isBlocking = false;
+        this.stats.setDef(this.stats.getDef() - this.stats.getGuardDefBonus());
+        this.stats.setAvo(this.stats.getAvo() - this.stats.getGuardAvoPenalty());
     }
 
     /**
@@ -52,10 +54,10 @@ public class GameCharacter {
      * @return true for this character dodged, false if they didnt
      */
 
-    public boolean dodgeCalc(int otherHit){ // works 13.8.25
+    public boolean dodgeCalc(int otherHit){
         // calculate hit chance
         // roll dice, return true for dodge and false for no dodge
-        int hitChance = otherHit - (getTotalAvo());
+        int hitChance = otherHit - (this.stats.getTotalAvo());
         int diceRoll = (int)(Math.random()*101);
 
         System.out.println(hitChance + " " + diceRoll);
@@ -69,7 +71,6 @@ public class GameCharacter {
         }
     }
 
-
     /**
      * Calculates damage for basic attack
      * @return The full damage value for the attack
@@ -77,7 +78,7 @@ public class GameCharacter {
     public int basicAttack(){ // works 13.8.25
         // basic attack the other
         // return value is the dmg of the move BEFORE opponent def calcs
-        double dmg = getTotalStr() * 0.8;
+        double dmg = this.stats.getTotalStr() * 0.8;
         dmg = Math.round(dmg);
         return (int)dmg;
     }
@@ -87,55 +88,26 @@ public class GameCharacter {
      * @param fullDmg The full damage of the attack
      */
 
-    public void takeDamage(int fullDmg){ // works 13.8.25
+    public void takeDamage(int fullDmg){ 
         //take damage, dmg = str - def
         int dmg;
-        if (fullDmg <= this.getTotalDef()){
+        if (fullDmg <= this.stats.getTotalDef()){
             dmg = 0;
         }
         else {
-            dmg = fullDmg - this.getTotalDef();
+            dmg = fullDmg - this.stats.getTotalDef();
         }
-        System.out.println(this.getHpCurrent());
-        this.hpCurrent -= dmg;
+        System.out.println(this.stats.getHpCurrent());
+        this.stats.setHpCurrent(this.stats.getHpCurrent() - dmg);
         System.out.println(dmg);
-        System.out.println(this.getHpCurrent());
+        System.out.println(this.stats.getHpCurrent());
     }
 
 
     // getters
-    public int getStr(){
-        return this.str;
+    public boolean getIsBlocking(){
+        return this.isBlocking;
     }
-    public int getHit(){
-        return this.hit;
-    }
-    public int getAvo(){
-        return this.avo;
-    }
-    public int getDef(){
-        return this.def;
-    }
-    public int getHpMax(){
-        return this.hpMax;
-    }
-    public int getHpCurrent(){
-        return this.hpCurrent;
-    }
-
-    public int getStrMod(){
-        return this.strMod;
-    }
-    public int getHitMod(){
-        return this.hitMod;
-    }
-    public int getAvoMod(){
-        return this.avoMod;
-    }
-    public int getDefMod(){
-        return this.defMod;
-    }
-
     public boolean getIsSlain(){
         return this.isSlain;
     }
@@ -143,66 +115,108 @@ public class GameCharacter {
         return this.userName;
     }
 
-    public void getAllBaseStats(){
-        System.out.println(this.getStr());
-        System.out.println(this.getHit());
-        System.out.println(this.getAvo());
-        System.out.println(this.getDef());
-        System.out.println(this.getHpCurrent());
-        System.out.println(this.getHpMax());
+    // stats
+    public int getStr(){
+        return this.stats.getStr();
+    }
+    public int getHit(){
+        return this.stats.getHit();
+    }
+    public int getAvo(){
+        return this.stats.getAvo();
+    }
+    public int getDef(){
+        return this.stats.getDef();
+    }
+    public int getHpMax(){
+        return this.stats.getHpMax();
+    }
+    public int getHpCurrent(){
+        return this.stats.getHpCurrent();
+    }
+
+    public int getStrMod(){
+        return this.stats.getStrMod();
+    }
+    public int getHitMod(){
+        return this.stats.getHitMod();
+    }
+    public int getAvoMod(){
+        return this.stats.getAvoMod();
+    }
+    public int getDefMod(){
+        return this.stats.getDefMod();
+    }
+
+    public int getGuardDefBonus(){
+        return this.stats.getGuardDefBonus();
+    }
+    public int getGuardAvoPenalty(){
+        return this.stats.getGuardAvoPenalty();
     }
 
     // get stat+modifier
     public int getTotalStr(){
-        return this.str + this.strMod;
+        return this.stats.getTotalStr();
     }
     public int getTotalHit(){
-        return this.hit + this.hitMod;
+        return this.stats.getTotalHit();
     }
     public int getTotalAvo(){
-        return this.avo + this.avoMod;
+        return this.stats.getTotalAvo();
     }
     public int getTotalDef(){
-        return this.def + this.defMod;
+        return this.stats.getTotalDef();
     }
 
     // setters
-    public void setStr(int newStr){
-        this.str = newStr;
+    public void setIsBlocking(){
+        this.isBlocking = !this.isBlocking;
     }
-    public void setHit(int newHit){
-        this.hit = newHit;
-    }
-    public void setAvo(int newAvo){
-        this.avo = newAvo;
-    }
-    public void setDef(int newDef){
-        this.def = newDef;
-    }
-    public void setHpCurrent(int newHpCurrent){
-        this.hpCurrent = newHpCurrent;
-    }
-    public void setHpMax(int newHpMax){
-        this.hpMax = newHpMax;
-    }
-
-    public void setStrMod(int newStrMod){
-        this.strMod = newStrMod;
-    }
-    public void setHitMod(int newHitMod){
-        this.hitMod = newHitMod;
-    }
-    public void setAvoMod(int newAvoMod){
-        this.avoMod = newAvoMod;
-    }
-    public void setDefMod(int newDefMod){
-        this.defMod = newDefMod;
-    }
-
     public void setIsSlain(boolean newIsSlain){
         this.isSlain = newIsSlain;
     }
     public void setUserName(String newUserName){
         this.userName = newUserName;
+    }
+
+    // stats
+    public void setStr(int newStr){
+        this.stats.setStr(newStr);
+    }
+    public void setHit(int newHit){
+        this.stats.setHit(newHit);
+    }
+    public void setAvo(int newAvo){
+        this.stats.setAvo(newAvo);
+    }
+    public void setDef(int newDef){
+        this.stats.setDef(newDef);
+    }
+    public void setHpCurrent(int newHpCurrent){
+        this.stats.setHpCurrent(newHpCurrent);
+    }
+    public void setHpMax(int newHpMax){
+        this.stats.setHpMax(newHpMax);
+    }
+
+    public void setStrMod(int newStrMod){
+        this.stats.setStrMod(newStrMod);
+    }
+    public void setHitMod(int newHitMod){
+        this.stats.setHitMod(newHitMod);
+    }
+    public void setAvoMod(int newAvoMod){
+        this.stats.setAvoMod(newAvoMod);
+    }
+    public void setDefMod(int newDefMod){
+        this.stats.setDefMod(newDefMod);
+    }
+
+    public void setGuardDefBonus(int newGuardAvoPenalty){
+        this.stats.setGuardDefBonus(newGuardAvoPenalty);
+    }
+    public void setGuardAvoPenalty(int newGuardAvoPenalty){
+        this.stats.setGuardAvoPenalty(newGuardAvoPenalty);
     }
 }

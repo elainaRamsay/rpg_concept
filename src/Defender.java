@@ -1,9 +1,13 @@
 public class Defender extends GameCharacter {
-// class 1
+// class 2
 
     Defender(int istr, int ihit, int iavo, int idef, int ihp, String iuserName){
         super(istr, ihit, iavo, idef, ihp, iuserName);
         // any buff stacks or whateverthe fuck
+    }
+
+    public void showClassName(){
+        System.out.println("Defender");
     }
 
     public static void showDescription(){

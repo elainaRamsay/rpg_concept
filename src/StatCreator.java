@@ -259,7 +259,7 @@ public class StatCreator{
      * <p>Typing 0 will prompt the method to finish
      * @param scanner Scanner object needed to read from console
      */
-    public void changeStats(Scanner scanner){
+    public void statChanger(Scanner scanner){
             // get input
             // is input valid
             // is input uppercase
@@ -304,7 +304,7 @@ public class StatCreator{
             if (!finished) {
                 System.out.println("looping");
                 this.displayAllStats();
-                changeStats(scanner);
+                statChanger(scanner);
             }
     }
 
@@ -413,34 +413,39 @@ public class StatCreator{
     }
 
     // Character Object
+
     /**
-     * Imports the finally selected stats into a character of the desired class
-     * @param character Character object to be casted into the new subclass
-     * @param scanner Scanner object to read from console
+     * Makes an Attacker object using the stats created by the Stat Creator
+     * @return an Attacker object
      */
-    public void makeCharacter(GameCharacter character, Scanner scanner){
-        int selection = getUserClassChoice(scanner);
-
-        if (selection == 0){
-            System.out.println("Making attacker");
-            statTransferAttacker(character);
-        }
-        else if (selection == 1){
-            System.out.println("Making defender");
-            statTransferDefender(character);
-        }
-        else {
-            System.out.println("bruh");
-        }
+    public Attacker makeAttacker(){
+        return new Attacker(this.setStr, this.setHit, this.setAvo, this.setDef, this.setHp, this.setUserName);
     }
 
-    private void statTransferAttacker(GameCharacter character){
-        character = new Attacker(this.setStr, this.setHit, this.setAvo, this.setDef, this.setHp, this.setUserName);
+    /**
+     * Makes a Defender object using the stats created by the Stat Creator
+     * @return a Defender object
+     */
+    public Defender makeDefender(){
+        return new Defender(this.setStr, this.setHit, this.setAvo, this.setDef, this.setHp, this.setUserName);
     }
 
-    private void statTransferDefender(GameCharacter character){
-        character = new Defender(this.setStr, this.setHit, this.setAvo, this.setDef, this.setHp, this.setUserName);
+    // main method
+    // run get class
+    // run get stats
+    // run character obj maker
+
+    /**
+     * Runs classSelection and statChanger
+     * @param scanner
+     * @param character
+     */
+    public void statCreator(Scanner scanner, GameCharacter character){
+        this.classSelection(scanner);
+        this.statChanger(scanner);
     }
+
+
 
     // getters
     public int getSkillPoints(){
