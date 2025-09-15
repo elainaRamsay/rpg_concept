@@ -54,3 +54,30 @@ HP: 14-any
 50 Skill points to allocate, each point gives +2 to any stat they choose
 
 Keys 1,2,3,4,5 increase the respective stat, Q,W,E,R,T decrease
+
+Check stat points are not over or underallocated
+50 skill points, each gives +2 of stat
+at 0 points, distribution should have +100 stats across all
+minimum 14HP and 80HIT, therefore 
+
+All stats added - 94 = 2 * spent points
+
+Disallowing stats to go below base values
+store the base values
+check if stat is base value or lower
+if it is, dont allow it to be subtracted from
+
+super obj = new sub() - obj cant use sub methods
+fixable using casting (sus) (not working actually)
+
+how can a sub be made through user input
+
+Interface + helper class
+Interface defines the methods we gonna use
+"helperClass" implements the interface, and is used to create the correct object needed (attacker or defender)
+helperClass also runs the methods of the subclass.
+subObj.submethod() is still used however.
+
+"@Override" in inheritance is used to tell java which method, of the same name, in the super or subclass is meant to be used. i.e override in subclass for "attack" means that the subclass version should be used.
+
+This might be the way for fixing the problem.
