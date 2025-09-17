@@ -1,3 +1,6 @@
+package gamecharacter;
+import stats.*;
+
 import java.util.Scanner;
 
 public class StatCreator{
@@ -11,7 +14,7 @@ public class StatCreator{
     private String setUserName;
     private int characterClass;
 
-    StatCreator(){
+    public StatCreator(){
         this.skillPoints = 50;
         this.stats = new Stats(0,80,0,0,14);
         this.baseStats = new Stats(this.stats.getStr(), this.stats.getHit(), this.stats.getAvo(), this.stats.getDef(), this.stats.getHpMax());
@@ -421,7 +424,7 @@ public class StatCreator{
      * @param scanner
      * @param character
      */
-    public void statCreator(Scanner scanner, GameCharacter character){
+    public void statCreator(Scanner scanner){
         this.classSelection(scanner);
         this.statChanger(scanner);
     }
@@ -456,6 +459,10 @@ public class StatCreator{
     }
     public int getCharacterClass(){
         return this.characterClass;
+    }
+
+    public Stats getStats(){
+        return this.stats;
     }
 
     // setters

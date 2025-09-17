@@ -1,4 +1,5 @@
 import java.util.Scanner;
+import gamecharacter.*;
 
 public class Main {
     public static void main(String[] args) throws Exception {
@@ -6,32 +7,35 @@ public class Main {
 
         Scanner scanner = new Scanner(System.in);
 
-        // GameCharacter one = new GameCharacter(99,100,30,30,30,"mogus");
+        GameCharacterFactory AtkFactory = new AttackerFactory();
+        GameCharacterFactory DefFactory = new DefenderFactory();
+
+        GameCharacter initP1 = null; 
 
         //System.out.println(one.dodgeCalc(100));
         //System.out.println(one.basicAttack());
 
-        //UnitTests.runCharacterTests(one);
+        //UnitTests.runCharacterTests();
+        
         StatCreator stats1 = new StatCreator();
         // UnitTests.runStatCreatorTests(stats1);
          
-        GameCharacter p1 = new GameCharacter();
-        p1.displayAllStats();
-        // p1.displayAllStats();
+        // GameCharacter p1 = new GameCharacter();
+        //p1.displayAllStats();
         // System.out.println(p1.checkInputValid(p1.getUserInput()));
-        // UnitTests.runStatCreatorTests(p1);
+        // UnitTests.runStatCreatorTests(stats1);
         
-        stats1.statCreator(scanner, p1);
+        stats1.statCreator(scanner);
         if (stats1.getCharacterClass() == 1){
-            p1 = stats1.makeAttacker();
+            initP1 = AtkFactory.GameCharacterMaker(stats1.getStats(), stats1.getSetUserName());
         }
         else if (stats1.getCharacterClass() == 2){
-            p1 = stats1.makeDefender();
+            initP1 = DefFactory.GameCharacterMaker(stats1.getStats(), stats1.getSetUserName());
         }
         
         System.out.println("p1 stats");
-        p1.displayAllStats();
-        // p1.special1(); // doesnt work
+        initP1.showClassName();
+        initP1.displayAllStats();
         
         scanner.close(); 
         

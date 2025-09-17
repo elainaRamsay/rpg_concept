@@ -1,3 +1,5 @@
+package stats;
+
 public class Stats {
     private int str;
     private int hit;
@@ -22,6 +24,23 @@ public class Stats {
         this.def = idef;
         this.hpMax = ihp;
         this.hpCurrent = ihp;
+
+        this.strMod = 0;
+        this.hitMod = 0;
+        this.avoMod = 0;
+        this.defMod = 0;
+
+        this.guardDefBonus = 40;
+        this.guardAvoPenalty = 20;
+    }
+
+    public Stats(Stats iStats){
+        this.str = iStats.str;
+        this.hit = iStats.hit;
+        this.avo = iStats.avo;
+        this.def = iStats.def;
+        this.hpMax = iStats.hpMax;
+        this.hpCurrent = iStats.hpCurrent;
 
         this.strMod = 0;
         this.hitMod = 0;

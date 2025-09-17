@@ -1,8 +1,23 @@
-public class GameCharacter {
+package gamecharacter;
+import stats.*;
+
+public abstract class GameCharacter {
     private Stats stats;
     private boolean isBlocking;
     private boolean isSlain;
     private String userName;
+
+    public abstract void showClassName();
+    public abstract void displayAllStats();
+    public abstract void displayUniqueStats();
+    public abstract int moveSelect();
+    public abstract void doMove(int selection);
+    /* 
+    public abstract void special1();
+    public abstract void special2();
+    public abstract void special3();
+     * 
+    */
 
     public GameCharacter(int istr, int ihit, int iavo, int idef, int ihp, String iuserName){
         this.stats = new Stats(istr, ihit, iavo, idef, ihp);
@@ -12,7 +27,7 @@ public class GameCharacter {
     }
 
     public GameCharacter(Stats stats, String iuserName){
-        this.stats = stats;
+        this.stats = new Stats(stats);
         this.isBlocking = false;
         this.isSlain = false;
         this.userName = iuserName;
@@ -23,16 +38,15 @@ public class GameCharacter {
         this.isBlocking = false;
         this.isSlain = false;
         this.userName = null;
-    }
-
-     
-    public void displayAllStats(){
+    } 
+    
+    protected void universalStats(){
         this.stats.displayAllStats();
     }
      
 
     // universal action methods
-    public void block(){
+    protected void block(){
         if (this.isBlocking){
             System.out.println("Error: Already blocking");
             return;
@@ -42,7 +56,7 @@ public class GameCharacter {
         this.stats.setAvo(this.stats.getAvo() + this.stats.getGuardAvoPenalty());
     }
 
-    public void dropGuard(){
+    protected void dropGuard(){
         if (!this.isBlocking){
             System.out.println("Error: not blocking");
             return;

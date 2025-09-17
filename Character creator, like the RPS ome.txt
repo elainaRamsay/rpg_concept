@@ -81,3 +81,34 @@ subObj.submethod() is still used however.
 "@Override" in inheritance is used to tell java which method, of the same name, in the super or subclass is meant to be used. i.e override in subclass for "attack" means that the subclass version should be used.
 
 This might be the way for fixing the problem.
+
+Using abstract class version of Factory Design Pattern
+
+New idea/direction: Use a class for Moves? could this allow more freedom within the abstract class?
+
+abstract method for selecting move, and abstract method for doing a move.
+attacker and defender implement their own moves. moveSelect() and doMove() can be used in Battle
+
+We're using packages now. Limits what can be accessed, and helps organise files.
+
+PROGRESS:
+GameCharacterFactorys - complete
+StatCreator - complete
+GameCharacter - near complete
+Attacker - needs character designing, moves and such
+Defender - needs character designing, moves and such
+Stats - complete
+Battle - nothing done yet
+
+STATUS EFFECTS???
+
+Battle Class:
+- P1 and P2 take turns doing moves, rolling dodge chance
+- Display Battle info
+- Battle Info: Round/turn num, P1&P2 HP, P1&P2 custom stats that should be tracked, Status effects
+- Option to display movenames and descriptions
+- Option to display stats
+
+Battle class technical ideas:
+- P1 and P2 reference copy as attribute of class
+- Object for Battle UI info

@@ -1,8 +1,15 @@
+import gamecharacter.*;
+import stats.*;
+
 public class UnitTests {
 
-    public static void runCharacterTests(GameCharacter testSubject){
-        dodgeTest(testSubject);
-        takeDamageTest(testSubject);
+    public static void runCharacterTests(){
+        //GameCharacter one = new GameCharacter(99,100,30,30,30,"mogus");
+        Stats testStats = new Stats(99,100,30,30,30);
+        GameCharacterFactory atkFactory = new AttackerFactory();
+        GameCharacter one = atkFactory.GameCharacterMaker(testStats, "mogus");
+        dodgeTest(one);
+        takeDamageTest(one);
     }
 
     public static void runStatCreatorTests(StatCreator testSubject){
